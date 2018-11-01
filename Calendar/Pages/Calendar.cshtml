@@ -1,0 +1,23 @@
+﻿@page
+@model Calendar.Pages.CalendarModel
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<h2>Calendar</h2>
+<table>
+    @foreach (var week in Model.CurrentMonth)
+    {
+        <tr>
+            @foreach (var date in week)
+            {
+                <td>
+                    @if (date > 0)
+                    {
+                        await Html.RenderPartialAsync("DayPartial", date);
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
