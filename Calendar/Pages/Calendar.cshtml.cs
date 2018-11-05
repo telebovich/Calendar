@@ -10,10 +10,17 @@ namespace Calendar.Pages
 {
     public class CalendarModel : PageModel
     {
-        public List<int[]> CurrentMonth = new List<int[]>();
+        public const int DAYS_IN_WEEK = 7;
+        public const int WEEKS_IN_MONTH = 6;
+
+        public int[,] CurrentMonth = new int[DAYS_IN_WEEK, WEEKS_IN_MONTH];
 
         public void OnGet()
         {
+            for (int j = 0; j < WEEKS_IN_MONTH; j++)
+                for (int i = 0; i < DAYS_IN_WEEK; i++)
+                    CurrentMonth[i, j] = 0;
+
             // TODO: Refactor and write some unit tests
             // The code is hardcoded to first day of week is Sunday
             // Calculate metadata
@@ -22,37 +29,25 @@ namespace Calendar.Pages
             int daysInMonth = calendar.GetDaysInMonth(now.Year, now.Month);
             DayOfWeek firstDayOfMonth =
                 calendar.GetDayOfWeek(new DateTime(now.Year, now.Month, 1));
-            int weeks = daysInMonth / 7;
-            if (daysInMonth > 28 
-                || (daysInMonth == 28 && firstDayOfMonth != DayOfWeek.Sunday))
-                weeks += 1;
-            if (firstDayOfMonth == DayOfWeek.Thursday 
-                || firstDayOfMonth == DayOfWeek.Friday
-                || firstDayOfMonth == DayOfWeek.Saturday)
-                weeks += 1;
-            int date = 0;
-
-            // Fill month data so we will be able to diplay it on the page
-            for (int i = 0; i < weeks; i++)
+            int currentDate = 0;
+            // Fill month data so we will be able to display it on the page
+            for (int j = 0; j < WEEKS_IN_MONTH; j++)
             {
-                // Create a week
-                int[] week = new int[7];
                 /* 
                  * Prefix operator.
                  * Increase date by one
                  * Get date
                  */
-                for (int j = 0; j < 7; j++)
+                for (int i = 0; i < DAYS_IN_WEEK; i++)
                 {
-                    if (date < daysInMonth)
+                    if (currentDate < daysInMonth)
                     {
-                        if (i > 0 || (i == 0 && j >= (int)firstDayOfMonth))
-                            week[j] = ++date;
+                        if (j > 0 || (j == 0 && i >= (int)firstDayOfMonth))
+                            CurrentMonth[i, j] = ++currentDate;
                     }
                     else
-                        week[j] = 0;
+                        CurrentMonth[i, j] = 0;
                 }
-                CurrentMonth.Add(week);
             }
         }
     }
