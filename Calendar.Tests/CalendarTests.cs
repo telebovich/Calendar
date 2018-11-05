@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Calendar.Tests
 {
-    public class UnitTest1
+    public class CalendarTests
     {
         [Fact]
         public void Test1()

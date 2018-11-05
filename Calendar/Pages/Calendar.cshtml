@@ -12,9 +12,9 @@
             @for (int i = 0; i < 7; i++)
             {
                 <td>
-                    @if (Model.CurrentMonth[i, j] > 0)
+                    @if (Model.Calendar.CurrentMonth[i, j] > 0)
                     {
-                        await Html.RenderPartialAsync("DayPartial", Model.CurrentMonth[i, j]);
+                        await Html.RenderPartialAsync("DayPartial", Model.Calendar.CurrentMonth[i, j]);
                     }
                 </td>
             }
