@@ -6,10 +6,10 @@
 
 <h2>Calendar</h2>
 <table>
-    @for (int j = 0; j < 6; j++)
+    @for (int i = 0; i < 6; i++)
     {
         <tr>
-            @for (int i = 0; i < 7; i++)
+            @for (int j = 0; j < 7; j++)
             {
                 <td>
                     @if (Model.Calendar.CurrentMonth[i, j] > 0)

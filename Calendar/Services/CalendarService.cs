@@ -14,12 +14,12 @@ namespace Calendar.Services
         private DayOfWeek firstDayOfMonth; 
         private int currentDate = 0;
         private int daysInMonth = 0;
-        public readonly int[,] CurrentMonth = new int[DAYS_IN_WEEK, WEEKS_IN_MONTH];
+        public readonly int[,] CurrentMonth = new int[WEEKS_IN_MONTH, DAYS_IN_WEEK];
 
         public CalendarService()
         {
-            for (int j = 0; j < WEEKS_IN_MONTH; j++)
-                for (int i = 0; i < DAYS_IN_WEEK; i++)
+            for (int i = 0; i < WEEKS_IN_MONTH; i++)
+                for (int j = 0; j < DAYS_IN_WEEK; j++)
                     CurrentMonth[i, j] = 0;
 
             DateTime now = DateTime.Now;
@@ -30,25 +30,25 @@ namespace Calendar.Services
         public void Init()
         {
             // Fill month data so we will be able to display it on the page
-            for (int j = 0; j < WEEKS_IN_MONTH; j++)
+            for (int i = 0; i < WEEKS_IN_MONTH; i++)
             {
                 /* 
                  * Prefix operator.
                  * Increase date by one
                  * Get date
                  */
-                for (int i = 0; i < DAYS_IN_WEEK; i++)
+                for (int j = 0; j < DAYS_IN_WEEK; j++)
                 {
-                    FillProperDateInCell(j, i);
+                    FillProperDateInCell(i, j);
                 }
             }
         }
 
-        private void FillProperDateInCell(int j, int i)
+        private void FillProperDateInCell(int i, int j)
         {
             if (currentDate < daysInMonth)
             {
-                if (j > 0 || (j == 0 && i >= (int)firstDayOfMonth))
+                if (i > 0 || (i == 0 && j >= (int)firstDayOfMonth))
                     CurrentMonth[i, j] = ++currentDate;
             }
             else
