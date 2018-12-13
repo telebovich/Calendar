@@ -11,11 +11,15 @@ namespace Calendar.Pages
 {
     public class CalendarModel : PageModel
     {
+        public int Year { get; set; }
+
+        public int Month { get; set; }
+
         public CalendarService Calendar = new CalendarService();
 
-        public void OnGet()
+        public void OnGet(int year, int month)
         {
-            Calendar.Init();
+            Calendar.Init(DateTime.Now.Year, DateTime.Now.Month);
         }
     }
 }

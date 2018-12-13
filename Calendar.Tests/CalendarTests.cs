@@ -13,7 +13,7 @@ namespace Calendar.Tests
             CalendarService calendar = new CalendarService();
 
             // Act
-            calendar.Init();
+            calendar.Init(2018, 11);
             int[,] expected = {
                 { 0, 0, 0, 0, 1, 2, 3 },
                 { 4, 5, 6, 7, 8, 9, 10 },

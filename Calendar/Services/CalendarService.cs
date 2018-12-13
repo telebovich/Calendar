@@ -21,13 +21,23 @@ namespace Calendar.Services
             for (int i = 0; i < WEEKS_IN_MONTH; i++)
                 for (int j = 0; j < DAYS_IN_WEEK; j++)
                     CurrentMonth[i, j] = 0;
-
-            DateTime now = DateTime.Now;
-            daysInMonth = calendar.GetDaysInMonth(now.Year, now.Month);
-            firstDayOfMonth = calendar.GetDayOfWeek(new DateTime(now.Year, now.Month, 1));
         }
 
-        public void Init()
+        public void Init(int year, int month)
+        {
+            BuildMetadata(year, month);
+
+            FillMonthData();
+        }
+
+        private void BuildMetadata(int year, int month)
+        {
+            DateTime now = DateTime.Now;
+            daysInMonth = calendar.GetDaysInMonth(year, month);
+            firstDayOfMonth = calendar.GetDayOfWeek(new DateTime(year, month, 1));
+        }
+
+        private void FillMonthData()
         {
             // Fill month data so we will be able to display it on the page
             for (int i = 0; i < WEEKS_IN_MONTH; i++)
