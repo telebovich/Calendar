@@ -45,7 +45,12 @@ namespace Calendar
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddPageRoute("/Calendar", "Calendar/{year:int}/{month:int}");
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
