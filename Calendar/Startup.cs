@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Calendar.Data;
 using Calendar.Services;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Calendar
 {
@@ -48,7 +51,24 @@ namespace Calendar
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
-                    options.Conventions.AddPageRoute("/Calendar", "Calendar/{year:int}/{month:int}");
+                    options.Conventions
+                        .AddPageRouteModelConvention("/Calendar", model =>
+                        {
+                            var selectorCount = model.Selectors.Count;
+                            for (var i = 0; i < selectorCount; i++)
+                            {
+                                var selector = model.Selectors[i];
+                                model.Selectors.Add(new SelectorModel
+                                {
+                                    AttributeRouteModel = new AttributeRouteModel
+                                    {
+                                        Template = AttributeRouteModel.CombineTemplates(
+                                            selector.AttributeRouteModel.Template,
+                                            "{year:int}/{month:int}")
+                                    }
+                                });
+                            }
+                        });
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
