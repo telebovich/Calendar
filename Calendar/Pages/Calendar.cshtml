@@ -6,19 +6,33 @@
 }
 
 <h2>Calendar</h2>
+<h3>Month @Model.Year</h3>
 <table>
-    @for (int i = 0; i < 6; i++)
-    {
+    <thead>
         <tr>
-            @for (int j = 0; j < 7; j++)
-            {
-                <td>
-                    @if (Model.Calendar.CurrentMonth[i, j] > 0)
-                    {
-                        await Html.RenderPartialAsync("DayPartial", Model.Calendar.CurrentMonth[i, j]);
-                    }
-                </td>
-            }
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @for (int i = 0; i < 6; i++)
+        {
+            <tr>
+                @for (int j = 0; j < 7; j++)
+                {
+                    <td>
+                        @if (Model.Calendar.CurrentMonth[i, j] > 0)
+                        {
+                            await Html.RenderPartialAsync("DayPartial", Model.Calendar.CurrentMonth[i, j]);
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
 </table>
