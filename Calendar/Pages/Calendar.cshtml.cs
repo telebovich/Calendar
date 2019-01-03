@@ -19,7 +19,7 @@ namespace Calendar.Pages
 
         public void OnGet(int year, int month)
         {
-            Calendar.Init(DateTime.Now.Year, DateTime.Now.Month);
+            Calendar.Init(year, month);
         }
     }
 }
