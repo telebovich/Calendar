@@ -20,7 +20,10 @@ namespace Calendar.Tests.FunctionalTests
         [Theory]
         [InlineData("/")]
         [InlineData("/Calendar")]
-        public async Task Returns_home_page(string url)
+        [InlineData("/Calendar/2018/11")]
+        [InlineData("/Identity/Account/Register")]
+        [InlineData("/Identity/Account/Login")]
+        public async Task Returns_response_success(string url)
         {
             // Arrange
             var client = _factory.CreateClient();
