@@ -25,9 +25,17 @@ namespace Calendar.Services
 
         public void Init(int year, int month)
         {
+            ValidateInputParameters(year, month);
+
             BuildMetadata(year, month);
 
             FillMonthData();
+        }
+
+        private void ValidateInputParameters(int year, int month)
+        {
+            if (year < 1940 || year > 2240)
+                throw new ArgumentOutOfRangeException("Please enter year between 1940 and 2240");
         }
 
         private void BuildMetadata(int year, int month)
