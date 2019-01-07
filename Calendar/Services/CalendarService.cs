@@ -11,9 +11,10 @@ namespace Calendar.Services
         private const int DAYS_IN_WEEK = 7;
         private const int WEEKS_IN_MONTH = 6;
         private GregorianCalendar calendar = new GregorianCalendar();
-        private DayOfWeek firstDayOfMonth; 
+        private DayOfWeek firstDayOfMonth;
         private int currentDate = 0;
         private int daysInMonth = 0;
+        private DateTime _now = DateTime.Now;
         public readonly int[,] CurrentMonth = new int[WEEKS_IN_MONTH, DAYS_IN_WEEK];
 
         public CalendarService()
@@ -27,6 +28,11 @@ namespace Calendar.Services
         {
             ValidateInputParameters(year, month);
 
+            if (year == 0)
+                year = _now.Year;
+            if (month == 0)
+                month = _now.Month;
+
             BuildMetadata(year, month);
 
             FillMonthData();
@@ -34,7 +40,12 @@ namespace Calendar.Services
 
         private void ValidateInputParameters(int year, int month)
         {
+            bool valid = true;
             if (year < 1940 || year > 2240)
+                valid = false;
+            if (year == 0 && month == 0)
+                valid = true;
+            if (!valid)
                 throw new ArgumentOutOfRangeException("Please enter year between 1940 and 2240");
         }
 

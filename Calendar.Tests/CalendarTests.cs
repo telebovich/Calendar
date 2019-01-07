@@ -29,12 +29,13 @@ namespace Calendar.Tests
         [Theory]
         [InlineData(int.MinValue,int.MinValue)]
         [InlineData(int.MaxValue,int.MaxValue)]
+        [InlineData(2019,int.MinValue)]
         [InlineData(2019,int.MaxValue)]
         public void Calendar_should_throw_ArgumentOutOfRangeException(int year, int month)
         {
             var calendarService = new CalendarService();
 
-            calendarService.Init(year, month);
+            Assert.Throws<ArgumentOutOfRangeException>(new Action(() => calendarService.Init(year, month)));
         }
     }
 }
