@@ -37,5 +37,13 @@ namespace Calendar.Tests
 
             Assert.Throws<ArgumentOutOfRangeException>(new Action(() => calendarService.Init(year, month)));
         }
+
+        [Fact]
+        public void Should_not_throw_any_exception()
+        {
+            var calendarService = new CalendarService();
+
+            calendarService.Init(0, 0);
+        }
     }
 }
