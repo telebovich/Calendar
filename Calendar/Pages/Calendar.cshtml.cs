@@ -19,8 +19,8 @@ namespace Calendar.Pages
 
         public void OnGet(int year, int month)
         {
-            Year = year;
             Calendar.Init(year, month);
+            Year = Calendar.GetValidYear(year);
         }
     }
 }

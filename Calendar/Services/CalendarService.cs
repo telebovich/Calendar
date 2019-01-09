@@ -15,6 +15,8 @@ namespace Calendar.Services
         private int currentDate = 0;
         private int daysInMonth = 0;
         private DateTime _now = DateTime.Now;
+        private int _year = 0;
+        private int _month = 0;
         public readonly int[,] CurrentMonth = new int[WEEKS_IN_MONTH, DAYS_IN_WEEK];
 
         public CalendarService()
@@ -26,27 +28,24 @@ namespace Calendar.Services
 
         public void Init(int year, int month)
         {
-            ValidateInputParameters(year, month);
+            _year = GetValidYear(year);
+            _month = GetValidMonth(month);
 
-            if (year == 0)
-                year = _now.Year;
-            if (month == 0)
-                month = _now.Month;
-
-            BuildMetadata(year, month);
+            BuildMetadata(_year, _month);
 
             FillMonthData();
         }
 
-        private void ValidateInputParameters(int year, int month)
+        public int GetValidMonth(int month)
         {
-            bool valid = true;
-            if (year < 1940 || year > 2240)
-                valid = false;
-            if (year == 0 && month == 0)
-                valid = true;
-            if (!valid)
-                throw new ArgumentOutOfRangeException("Please enter year between 1940 and 2240");
+            return month == 0 ? _now.Month : month;
+        }
+
+        public int GetValidYear(int year)
+        {
+            if ((year < 1940 && year != 0) || year > 2240)
+                throw new ArgumentOutOfRangeException("Please specify year between 1940 and 2240");
+            return year == 0 ? _now.Year : year;
         }
 
         private void BuildMetadata(int year, int month)

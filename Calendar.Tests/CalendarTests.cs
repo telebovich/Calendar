@@ -45,5 +45,45 @@ namespace Calendar.Tests
 
             calendarService.Init(0, 0);
         }
+
+        [Fact]
+        public void Should_return_valid_year()
+        {
+            var calendarService = new CalendarService();
+
+            int actual = calendarService.GetValidYear(2019);
+
+            Assert.Equal(2019, actual);
+        }
+
+        [Fact]
+        public void Should_return_current_year()
+        {
+            var calendarService = new CalendarService();
+
+            int actual = calendarService.GetValidYear(0);
+
+            Assert.Equal(DateTime.Now.Year, actual);
+        }
+
+        [Fact]
+        public void Should_return_valid_month()
+        {
+            var calendarService = new CalendarService();
+
+            int actual = calendarService.GetValidMonth(10);
+
+            Assert.Equal(10, actual);
+        }
+
+        [Fact]
+        public void Should_return_current_month()
+        {
+            var calendarService = new CalendarService();
+
+            int actual = calendarService.GetValidMonth(0);
+
+            Assert.Equal(DateTime.Now.Month, actual);
+        }
     }
 }
