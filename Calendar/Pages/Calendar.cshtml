@@ -5,8 +5,7 @@
     ViewData["Title"] = "Calendar";
 }
 
-<h2>Calendar</h2>
-<h3>Month @Model.Year</h3>
+<h2>@Model.MonthName @Model.Year</h2>
 <table>
     <thead>
         <tr>
@@ -26,9 +25,9 @@
                 @for (int j = 0; j < 7; j++)
                 {
                     <td>
-                        @if (Model.Calendar.CurrentMonth[i, j] > 0)
+                        @if (Model.MonthArray[i, j] > 0)
                         {
-                            await Html.RenderPartialAsync("DayPartial", Model.Calendar.CurrentMonth[i, j]);
+                            await Html.RenderPartialAsync("DayPartial", Model.MonthArray[i, j]);
                         }
                     </td>
                 }

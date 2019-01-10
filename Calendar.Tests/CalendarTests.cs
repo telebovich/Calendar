@@ -7,13 +7,33 @@ namespace Calendar.Tests
     public class CalendarTests
     {
         [Fact]
+        public void Calendar_should_be_constructed_with_default_date_passed()
+        {
+            var calendar = new CalendarService(0, 0);
+
+            DateTime now = DateTime.Now;
+
+            Assert.Equal(now.Year, calendar.Year);
+            Assert.Equal(now.Month, calendar.Month);
+        }
+
+        [Fact]
+        public void Calendar_should_be_constructed_with_date_passed()
+        {
+            var calendar = new CalendarService(2018, 11);
+
+            Assert.Equal(2018, calendar.Year);
+            Assert.Equal(11, calendar.Month);
+        }
+
+        [Fact]
         public void Calendar_should_create_correct_month()
         {
             // Arrange
-            CalendarService calendar = new CalendarService();
+            CalendarService calendar = new CalendarService(2018, 11);
 
             // Act
-            calendar.Init(2018, 11);
+            int [,] actual = calendar.GetMonthArray();
             int[,] expected = {
                 { 0, 0, 0, 0, 1, 2, 3 },
                 { 4, 5, 6, 7, 8, 9, 10 },
@@ -23,7 +43,7 @@ namespace Calendar.Tests
                 { 0, 0, 0, 0, 0, 0, 0 },
             };
             // Assert
-            Assert.Equal<int[,]>(expected, calendar.CurrentMonth);
+            Assert.Equal<int[,]>(expected, actual);
         }
 
         [Theory]
@@ -33,57 +53,40 @@ namespace Calendar.Tests
         [InlineData(2019,int.MaxValue)]
         public void Calendar_should_throw_ArgumentOutOfRangeException(int year, int month)
         {
-            var calendarService = new CalendarService();
-
-            Assert.Throws<ArgumentOutOfRangeException>(new Action(() => calendarService.Init(year, month)));
+            Assert.Throws<ArgumentOutOfRangeException>(new Action(() =>
+            {
+                var calendarService = new CalendarService(year, month);
+            }));
         }
 
         [Fact]
         public void Should_not_throw_any_exception()
         {
-            var calendarService = new CalendarService();
+            var calendarService = new CalendarService(0, 0);
 
-            calendarService.Init(0, 0);
+            calendarService.GetMonthArray();
         }
 
-        [Fact]
-        public void Should_return_valid_year()
+        [Theory]
+        [InlineData(2019, 1, "January")]
+        [InlineData(2019, 2, "February")]
+        [InlineData(2019, 3, "March")]
+        [InlineData(2019, 4, "April")]
+        [InlineData(2019, 5, "May")]
+        [InlineData(2019, 6, "June")]
+        [InlineData(2019, 7, "July")]
+        [InlineData(2019, 8, "August")]
+        [InlineData(2019, 9, "September")]
+        [InlineData(2019, 10, "October")]
+        [InlineData(2019, 11, "November")]
+        [InlineData(2019, 12, "December")]
+        public void Should_convert_month_number_to_text(int year, int month, string expected)
         {
-            var calendarService = new CalendarService();
+            var calendarService = new CalendarService(year, month);
 
-            int actual = calendarService.GetValidYear(2019);
+            string actual = calendarService.GetMonthName();
 
-            Assert.Equal(2019, actual);
-        }
-
-        [Fact]
-        public void Should_return_current_year()
-        {
-            var calendarService = new CalendarService();
-
-            int actual = calendarService.GetValidYear(0);
-
-            Assert.Equal(DateTime.Now.Year, actual);
-        }
-
-        [Fact]
-        public void Should_return_valid_month()
-        {
-            var calendarService = new CalendarService();
-
-            int actual = calendarService.GetValidMonth(10);
-
-            Assert.Equal(10, actual);
-        }
-
-        [Fact]
-        public void Should_return_current_month()
-        {
-            var calendarService = new CalendarService();
-
-            int actual = calendarService.GetValidMonth(0);
-
-            Assert.Equal(DateTime.Now.Month, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }

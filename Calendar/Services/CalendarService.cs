@@ -15,33 +15,43 @@ namespace Calendar.Services
         private int currentDate = 0;
         private int daysInMonth = 0;
         private DateTime _now = DateTime.Now;
-        private int _year = 0;
-        private int _month = 0;
-        public readonly int[,] CurrentMonth = new int[WEEKS_IN_MONTH, DAYS_IN_WEEK];
+        private readonly int[,] _monthArray = new int[WEEKS_IN_MONTH, DAYS_IN_WEEK];
 
-        public CalendarService()
+        public int Year { get; set; } = 0;
+        public int Month { get; set; } = 0;
+
+        public CalendarService(int year, int month)
+        {
+            Year = GetValidYear(year);
+            Month = GetValidMonth(month);
+
+            InitializeMonthArrayWithZeroes();
+        }
+
+        private void InitializeMonthArrayWithZeroes()
         {
             for (int i = 0; i < WEEKS_IN_MONTH; i++)
                 for (int j = 0; j < DAYS_IN_WEEK; j++)
-                    CurrentMonth[i, j] = 0;
+                    _monthArray[i, j] = 0;
         }
 
-        public void Init(int year, int month)
+        public int[,] GetMonthArray()
         {
-            _year = GetValidYear(year);
-            _month = GetValidMonth(month);
-
-            BuildMetadata(_year, _month);
+            BuildMetadata(Year, Month);
 
             FillMonthData();
+
+            return _monthArray;
         }
 
-        public int GetValidMonth(int month)
+        private int GetValidMonth(int month)
         {
+            if ((month < 1 && month != 0) || month > 12)
+                throw new ArgumentOutOfRangeException("Please specify year between 1940 and 2240");
             return month == 0 ? _now.Month : month;
         }
 
-        public int GetValidYear(int year)
+        private int GetValidYear(int year)
         {
             if ((year < 1940 && year != 0) || year > 2240)
                 throw new ArgumentOutOfRangeException("Please specify year between 1940 and 2240");
@@ -72,15 +82,20 @@ namespace Calendar.Services
             }
         }
 
+        public string GetMonthName()
+        {
+            return Convert.ToString((MonthNames)Month);
+        }
+
         private void FillProperDateInCell(int i, int j)
         {
             if (currentDate < daysInMonth)
             {
                 if (i > 0 || (i == 0 && j >= (int)firstDayOfMonth))
-                    CurrentMonth[i, j] = ++currentDate;
+                    _monthArray[i, j] = ++currentDate;
             }
             else
-                CurrentMonth[i, j] = 0;
+                _monthArray[i, j] = 0;
         }
     }
 }

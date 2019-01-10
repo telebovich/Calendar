@@ -11,16 +11,19 @@ namespace Calendar.Pages
 {
     public class CalendarModel : PageModel
     {
+        private int[,] _monthArray;
+
         public int Year { get; set; }
-
         public int Month { get; set; }
-
-        public CalendarService Calendar = new CalendarService();
+        public string MonthName { get; private set; }
+        public int[,] MonthArray => _monthArray;
 
         public void OnGet(int year, int month)
         {
-            Calendar.Init(year, month);
-            Year = Calendar.GetValidYear(year);
+            var calendar = new CalendarService(year, month);
+            _monthArray = calendar.GetMonthArray();
+            Year = calendar.Year;
+            MonthName = calendar.GetMonthName();
         }
     }
 }
