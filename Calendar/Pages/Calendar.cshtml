@@ -5,7 +5,19 @@
     ViewData["Title"] = "Calendar";
 }
 
-<h2>@Model.MonthName @Model.Year</h2>
+<div class="row">
+    <div class="col-10">
+        <h2>@Model.MonthName @Model.Year</h2>
+    </div>
+    <div class="col-2">
+        <div class="float-right">
+            <a class="btn btn-primary">Up</a>
+            <a class="btn btn-primary">
+                <i class="fas fa-angle-down text-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
