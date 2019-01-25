@@ -95,9 +95,20 @@ namespace Calendar.Tests
         [InlineData(2239, 12, 1940, 1)]
         public void Should_get_next_month(int year, int month, int expectedYear, int expectedMonth)
         {
-            int actualYear = 0, actualMonth = 0;
             var calendarService = new CalendarService(year, month);
-            (actualYear, actualMonth) = calendarService.GetNextMonth();
+            (int actualYear, int actualMonth) = calendarService.GetNextMonth();
+            Assert.Equal(expectedYear, actualYear);
+            Assert.Equal(expectedMonth, actualMonth);
+        }
+
+        [Theory]
+        [InlineData(2019, 1, 2018, 12)]
+        [InlineData(2019, 2, 2019, 1)]
+        [InlineData(1940, 1, 2239, 12)]
+        public void Should_get_previous_month(int year, int month, int expectedYear, int expectedMonth)
+        {
+            var calendarService = new CalendarService(year, month);
+            (int actualYear, int actualMonth) = calendarService.GetPreviousMonth();
             Assert.Equal(expectedYear, actualYear);
             Assert.Equal(expectedMonth, actualMonth);
         }

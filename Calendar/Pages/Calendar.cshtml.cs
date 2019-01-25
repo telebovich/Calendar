@@ -18,6 +18,7 @@ namespace Calendar.Pages
         public string MonthName { get; private set; }
         public int[,] MonthArray => _monthArray;
 
+        public Dictionary<string, string> UpLinkParameters = new Dictionary<string, string>();
         public Dictionary<string, string> DownLinkParameters = new Dictionary<string, string>();
 
         public void OnGet(int year, int month)
@@ -29,9 +30,12 @@ namespace Calendar.Pages
             MonthName = calendar.GetMonthName();
 
             (int nextYear, int nextMonth) = calendar.GetNextMonth();
-
             DownLinkParameters.Add("year", nextYear.ToString());
             DownLinkParameters.Add("month", nextMonth.ToString());
+
+            (int previousYear, int previousMonth) = calendar.GetPreviousMonth();
+            UpLinkParameters.Add("year", previousYear.ToString());
+            UpLinkParameters.Add("month", previousMonth.ToString());
         }
     }
 }

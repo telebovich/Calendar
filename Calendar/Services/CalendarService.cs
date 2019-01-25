@@ -121,5 +121,29 @@ namespace Calendar.Services
 
             return (returnYear, returnMonth);
         }
+
+        public (int year, int month) GetPreviousMonth()
+        {
+            int returnYear = Year, returnMonth = Month;
+
+            if (Month > 1)
+            {
+                returnMonth -= 1;
+            }
+
+            if (Month == 1)
+            {
+                returnYear -= 1;
+                returnMonth = 12;
+            }
+
+            if (Year == 1940 && Month == 1)
+            {
+                returnYear = 2239;
+                returnMonth = 12;
+            }
+
+            return (returnYear, returnMonth);
+        }
     }
 }
