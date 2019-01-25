@@ -88,5 +88,18 @@ namespace Calendar.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(2019, 1, 2019, 2)]
+        [InlineData(2019, 12, 2020, 1)]
+        [InlineData(2239, 12, 1940, 1)]
+        public void Should_get_next_month(int year, int month, int expectedYear, int expectedMonth)
+        {
+            int actualYear = 0, actualMonth = 0;
+            var calendarService = new CalendarService(year, month);
+            (actualYear, actualMonth) = calendarService.GetNextMonth();
+            Assert.Equal(expectedYear, actualYear);
+            Assert.Equal(expectedMonth, actualMonth);
+        }
     }
 }

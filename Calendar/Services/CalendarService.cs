@@ -97,5 +97,29 @@ namespace Calendar.Services
             else
                 _monthArray[i, j] = 0;
         }
+
+        public (int year, int month) GetNextMonth()
+        {
+            int returnMonth = Month, returnYear = Year;
+
+            if (Month < 12)
+            {
+                returnMonth += 1;
+            }
+
+            if (Month == 12)
+            {
+                returnYear += 1;
+                returnMonth = 1;
+            }
+
+            if (Year == 2239 && Month == 12)
+            {
+                returnYear = 1940;
+                returnMonth = 1;
+            }
+
+            return (returnYear, returnMonth);
+        }
     }
 }

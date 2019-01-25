@@ -18,12 +18,20 @@ namespace Calendar.Pages
         public string MonthName { get; private set; }
         public int[,] MonthArray => _monthArray;
 
+        public Dictionary<string, string> DownLinkParameters = new Dictionary<string, string>();
+
         public void OnGet(int year, int month)
         {
             var calendar = new CalendarService(year, month);
             _monthArray = calendar.GetMonthArray();
             Year = calendar.Year;
+            Month = calendar.Month;
             MonthName = calendar.GetMonthName();
+
+            (int nextYear, int nextMonth) = calendar.GetNextMonth();
+
+            DownLinkParameters.Add("year", nextYear.ToString());
+            DownLinkParameters.Add("month", nextMonth.ToString());
         }
     }
 }
