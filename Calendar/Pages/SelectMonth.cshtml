@@ -1,0 +1,43 @@
+﻿@page "{year:int}"
+@model Calendar.Pages.SelectMonthModel
+@{
+    ViewData["Title"] = "SelectMonth";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-10">
+        <a class="text-dark" href="/SelectYear">
+            <h2>SelectMonth</h2>
+        </a>
+    </div>
+    <div class="col-2">
+        <div class="float-right">
+            <a class="btn btn-light" href="@Model.PreviousYear">
+                <i class="fas fa-angle-up"></i>
+            </a>
+            <a class="btn btn-light" href="@Model.NextYear">
+                <i class="fas fa-angle-down"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/1">Jan</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/2">Feb</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/3">Mar</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/4">Apr</a></td>
+    </tr>
+    <tr>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/5">May</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/6">Jun</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/7">Jul</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/8">Aug</a></td>
+    </tr>
+    <tr>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/9">Sep</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/10">Oct</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/11">Nov</a></td>
+        <td><a class="text-dark" href="/Calendar/@Model.Year/12">Dec</a></td>
+    </tr>
+</table>

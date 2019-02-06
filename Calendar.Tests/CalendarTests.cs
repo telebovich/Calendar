@@ -112,5 +112,25 @@ namespace Calendar.Tests
             Assert.Equal(expectedYear, actualYear);
             Assert.Equal(expectedMonth, actualMonth);
         }
+
+        [Theory]
+        [InlineData(2019, 2020)]
+        [InlineData(2239, 1940)]
+        public void Should_get_next_year(int year, int expectedYear)
+        {
+            var calendarService = new CalendarService(year, 1);
+            int actualYear = calendarService.GetNextYear();
+            Assert.Equal(expectedYear, actualYear);
+        }
+
+        [Theory]
+        [InlineData(2019, 2018)]
+        [InlineData(1940, 2239)]
+        public void Should_get_previous_year(int year, int expectedYear)
+        {
+            var calendarService = new CalendarService(year, 1);
+            int actualYear = calendarService.GetPreviousYear();
+            Assert.Equal(expectedYear, actualYear);
+        }
     }
 }

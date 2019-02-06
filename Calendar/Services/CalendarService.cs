@@ -145,5 +145,21 @@ namespace Calendar.Services
 
             return (returnYear, returnMonth);
         }
+
+        public int GetPreviousYear()
+        {
+            if (Year > 1940)
+                return Year - 1;
+            else 
+                return 2239;
+        }
+
+        public int GetNextYear()
+        {
+            if (Year < 2239)
+                return Year + 1;
+            else
+                return 1940;
+        }
     }
 }
