@@ -9,9 +9,13 @@ namespace Calendar.Pages
 {
     public class SelectYearModel : PageModel
     {
-        public void OnGet()
-        {
+        public int DecadeBeginYear { get; set; }
+        public int DecadeEndYear { get; set; }
 
+        public void OnGet(int decadeBeginYear, int decadeEndYear)
+        {
+            DecadeBeginYear = decadeBeginYear;
+            DecadeEndYear = decadeEndYear;
         }
     }
 }
