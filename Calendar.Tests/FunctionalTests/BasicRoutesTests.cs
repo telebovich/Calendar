@@ -22,6 +22,7 @@ namespace Calendar.Tests.FunctionalTests
         [InlineData("/Calendar")]
         [InlineData("/Calendar/2018/11")]
         [InlineData("/SelectMonth/2018")]
+        [InlineData("/SelectYear/2010-2019")]
         [InlineData("/Identity/Account/Register")]
         [InlineData("/Identity/Account/Login")]
         public async Task Returns_response_success(string url)

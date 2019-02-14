@@ -69,6 +69,24 @@ namespace Calendar
                                 });
                             }
                         });
+                    options.Conventions
+                        .AddPageRouteModelConvention("/SelectYear", model =>
+                        {
+                            var selectorCount = model.Selectors.Count;
+                            for (var i = 0; i < selectorCount; i++)
+                            {
+                                var selector = model.Selectors[i];
+                                model.Selectors.Add(new SelectorModel
+                                {
+                                    AttributeRouteModel = new AttributeRouteModel
+                                    {
+                                        Template = AttributeRouteModel.CombineTemplates(
+                                            selector.AttributeRouteModel.Template,
+                                            "{decadeBeginYear:int}-{decadeEndYear:int}")
+                                    }
+                                });
+                            }
+                        });
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

@@ -35,6 +35,15 @@ namespace Calendar.Services
                     _monthArray[i, j] = 0;
         }
 
+        public (int beginYear, int endYear) CalculateDecade()
+        {
+            int beginYear = 0, endYear = 0;
+            beginYear = Year / 10;
+            beginYear *= 10;
+            endYear = beginYear + 9;
+            return (beginYear, endYear);
+        }
+
         public int[,] GetMonthArray()
         {
             BuildMetadata(Year, Month);
@@ -42,6 +51,11 @@ namespace Calendar.Services
             FillMonthData();
 
             return _monthArray;
+        }
+
+        public int[,] GetYearArray()
+        {
+            throw new NotImplementedException();
         }
 
         private int GetValidMonth(int month)

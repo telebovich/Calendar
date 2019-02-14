@@ -13,6 +13,8 @@ namespace Calendar.Pages
         public int Year { get; set; }
         public int PreviousYear { get; set; }
         public int NextYear { get; set; }
+        public int DecadeBeginYear { get; set; }
+        public int DecadeEndYear { get; set; }
 
         public void OnGet(int year)
         {
@@ -21,6 +23,7 @@ namespace Calendar.Pages
             Year = year;
             PreviousYear = calendarService.GetPreviousYear();
             NextYear = calendarService.GetNextYear();
+            (DecadeBeginYear, DecadeEndYear) = calendarService.CalculateDecade(); 
         }
     }
 }

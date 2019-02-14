@@ -26,6 +26,18 @@ namespace Calendar.Tests
             Assert.Equal(11, calendar.Month);
         }
 
+        [Theory]
+        [InlineData(2015, 2010, 2019)]
+        [InlineData(2019, 2010, 2019)]
+        [InlineData(2010, 2010, 2019)]
+        public void Should_calculate_correct_decade(int year, int expectedBeginYear, int expectedEndYear)
+        {
+            var calendar = new CalendarService(year, 1);
+            (int actualBeginYear, int actualEndYear) = calendar.CalculateDecade();
+            Assert.Equal(expectedBeginYear, actualBeginYear);
+            Assert.Equal(expectedEndYear, actualEndYear);
+        }
+
         [Fact]
         public void Calendar_should_create_correct_month()
         {
