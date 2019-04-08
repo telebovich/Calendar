@@ -39,6 +39,28 @@ namespace Calendar.Services
                 throw new ArgumentException("End of decade is incorrect");
         }
 
+        public (int PreviousDecadeBeginYear, int PreviousDecadeEndYear) GetPreviousDecade()
+        {
+            int previousDecadeBeginYear = _decadeBeginYear; 
+            if (previousDecadeBeginYear > 1940)
+                previousDecadeBeginYear -= 10;
+            int previousDecadeEndYear = _decadeEndYear;
+            if (previousDecadeEndYear > 1949)
+                previousDecadeEndYear -= 10;
+            return (previousDecadeBeginYear, previousDecadeEndYear);
+        }
+
+        public (int NextDecadeBeginYear, int NextDecadeEndYear) GetNextDecade()
+        {
+            int nextDecadeBeginYear = _decadeBeginYear;
+            if (nextDecadeBeginYear < 2230)
+                nextDecadeBeginYear += 10;
+            int nextDecadeEndYear = _decadeEndYear;
+            if (nextDecadeEndYear < 2239)
+                nextDecadeEndYear += 10;
+            return (nextDecadeBeginYear, nextDecadeEndYear);
+        }
+
         public int[,] GetYearsArray()
         {
             FillData();

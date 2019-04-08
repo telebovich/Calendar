@@ -34,5 +34,31 @@ namespace Calendar.Tests
             };
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(2010, 2019, 2000, 2009)]
+        [InlineData(1940, 1949, 1940, 1949)]
+        public void Should_return_previous_decade(int decadeBeginYear, int decadeEndYear, int expectedBeginYear, int expectedEndYear)
+        {
+            var decadeService = new DecadeService(decadeBeginYear, decadeEndYear);
+
+            (int actualBeginYear, int actualEndYear) = decadeService.GetPreviousDecade();
+
+            Assert.Equal(expectedBeginYear, actualBeginYear);
+            Assert.Equal(expectedEndYear, actualEndYear);
+        }
+
+        [Theory]
+        [InlineData(2010, 2019, 2020, 2029)]
+        [InlineData(2230, 2239, 2230, 2239)]
+        public void Should_return_next_decade(int decadeBeginYear, int decadeEndYear, int expectedBeginYear, int expectedEndYear)
+        {
+            var decadeService = new DecadeService(decadeBeginYear, decadeEndYear);
+
+            (int actualBeginYear, int actualEndYear) = decadeService.GetNextDecade();
+
+            Assert.Equal(expectedBeginYear, actualBeginYear);
+            Assert.Equal(expectedEndYear, actualEndYear);
+        }
     }
 }
