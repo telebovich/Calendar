@@ -5,11 +5,22 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
+}
+
 <h1>Create Event</h1>
 
-<div class="row">
-    <div class="col">
-
+<form>
+    <div class="form-group col-3">
+        <label for="event_start">Start date</label>
+        <input id="event_start" type="text" class="form-control datepicker">
     </div>
-</div>
+</form>
 
+@section Scripts
+{
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/create-event.js"></script>
+}
