@@ -12,16 +12,19 @@
 }
 
 <div class="row">
-    <div class="col">
-        <h1>Create Event</h1>
+    <div class="col-1">
+        <a class="btn btn-light" asp-page="/Calendar">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+    <div class="col-10">
+        <h2>Create Event</h2>
+    </div>
+    <div class="col-1">
+        <button class="btn btn-primary" id="submit">Save</button>
     </div>
 </div>
 <form>
-    <div class="row mb-3">
-        <div class="col">
-            <button class="btn btn-primary" id="submit">Save</button>
-        </div>
-    </div>
     <div class="row">
         <div class="col">
             <div class="card">
@@ -51,10 +54,10 @@
                                             </div>
                                         </div>
                                         <div class="input-group mb-3 col-6">
-                                            <input id="event_time_hrs" type="text" class="form-control"
-                                                   aria-label="time hours" aria-describedby="hours_addon" />
+                                            <input id="event_time_min" type="text" class="form-control"
+                                                   aria-label="time minutes" aria-describedby="minutes_addon" />
                                             <div class="input-group-append">
-                                                <span class="input-group-text" id="hours_addon">Min</span>
+                                                <span class="input-group-text" id="minutes_addon">Min</span>
                                             </div>
                                         </div>
                                     </div>
